@@ -11,14 +11,17 @@ class Vector(val x: Double, val y: Double) {
 
   def euclideanLength: Double = math.sqrt(x * x + y * y)
 
-  def normalized: Vector = new Vector(x / euclideanLength, y / euclideanLength)
+  def normalized: Vector = {
+    val eucLength = euclideanLength
+    new Vector(x / eucLength, y / eucLength)
+  }
 
   override def equals(other: Any): Boolean = other match {
     case that: Vector => x == that.x && y == that.y
     case _ => false
   }
   // Vector(x, y)
-  override def toString: String = "Vector" + "(" + x.toString + ", " + y.toString + ")"
+  override def toString: String = s"Vector($x, $y)"
 }
 
 object Vector {
