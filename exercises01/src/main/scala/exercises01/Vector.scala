@@ -1,5 +1,7 @@
 package exercises01
 
+import scala.util.Try
+
 class Vector(val x: Double, val y: Double) {
   def +(other: Vector): Vector = new Vector(x + other.x, y + other.y)
 
@@ -7,13 +9,13 @@ class Vector(val x: Double, val y: Double) {
 
   def *(scalar: Double): Vector = new Vector(x * scalar, y * scalar)
 
-  def unary_- : Vector = new Vector(-x, -y)
+  def unary_- : Vector = this * (-1)
 
   def euclideanLength: Double = math.sqrt(x * x + y * y)
 
   def normalized: Vector = {
-    val eucLength = euclideanLength
-    new Vector(x / eucLength, y / eucLength)
+    val euclidLength = euclideanLength
+    Try(this * (1 / euclidLength)).getOrElse(this)
   }
 
   override def equals(other: Any): Boolean = other match {
